@@ -85,4 +85,4 @@ Only works on:
 This is **dangerous, unportable, with-assembly, bad, bad** code. It's a fun experiment, but real projects should stick to destructors and RAII. Things **will** break and you would not
 
 ## Contributing
-If you can make it work in more ways - bring PRs in, let's make it morre reliable.
+If you can make it work in more ways - bring PRs in, let's make it more reliable.
