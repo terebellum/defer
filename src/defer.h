@@ -2,12 +2,8 @@
 #define FUNC_DEFER_H
 
 #include <cassert>
-#include <exception>
-#include <thread>
-#include <utility>
 #include <vector>
 #include <functional>
-#include <dlfcn.h>
 
 #if defined(__APPLE__)
 #define C_SYMBOL_NAME(name) "_" #name
