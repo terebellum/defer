@@ -64,7 +64,7 @@ public:
             // 1. Get the frame pointer of the CURRENT function (not this constuctor), which better
             //    be compiled with -fno-omit-frame-pointer.
             void* current_frame_address = __builtin_frame_address(0);
-            assert(current_frame_address != nullptr);
+            assert(current_frame_address != nullptr && "Can't determine current frame address");
 
 
             // 2. Get the return address of the CURRENT function. This is the value we need
@@ -73,8 +73,7 @@ public:
             //    Original return adress returned would be our trampoline, if we already have
             //    defer statements
             void* original_return_address = __builtin_return_address(0);
-
-            assert(original_return_address != nullptr);
+            assert(original_return_address != nullptr && "Can't determine current return address");
             
             // 3. Find the location ON THE STACK where the return address is stored.
             //    For standard frame layouts on x86-64 and AArch64, this is at:
@@ -83,13 +82,14 @@ public:
 
             // 4. Sanity Check: Does the memory location we calculated actually contain the
             //    return address we expect? This confirms our stack layout assumption is correct.
-            assert(*return_address_ptr_on_stack == original_return_address);
+            assert(*return_address_ptr_on_stack == original_return_address && "Determined return address not matches actual return address.");
             
-            // 5. Success! Push the task and the original address, then overwrite the
+            // 5. Success! Save original address, then overwrite the
             //    return address on the stack with the address of our trampoline.
             final_return_address = original_return_address;
             *return_address_ptr_on_stack = (void*)&defer_trampoline;
         } 
+        // Push our task on stack
         deferred_task_stack.push_back(std::forward<F>(f));
 
 #else
