@@ -82,7 +82,7 @@ Only works on:
 
 ## Result 
 
-This is **dangerous, unportable, with-assembly, bad, bad** code. It's a fun experiment, but real projects should stick to destructors and RAII. Things **will** break and you would not
+This is **dangerous, unportable, with-assembly, bad, bad** code. It's a fun experiment, but real projects should stick to destructors and RAII. Things **will** break and **you** will break trying to debug it.
 
 ## Contributing
 If you can make it work in more ways - bring PRs in, let's make it more reliable.
