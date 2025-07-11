@@ -1,12 +1,12 @@
 # defer
 
-️ **Heads up:** This is bad! It's highly UB: it can delete your system, call your grandma and make demons fly out of your nose 
+️**NOTE:** This is bad! It's highly UB: it can delete your system, call your grandma and make demons fly out of your nose 
 
 ## What's This?
 
 It's  Go's `defer`. Real Non-RAII function-scope defer.
 
-This header-only hack adds `defer` to C++ using **stack manipulation**. It schedules cleanup actions to run when your function exits:
+This header-only hack adds `defer` to C++ using stack manipulation. It schedules cleanup actions to run when your function exits:
 
 ```cpp
 #include "defer.h"
@@ -37,9 +37,9 @@ make
 
 ## How It Works
 
-- **Stack Hijacking:** We override your function's return address to jump into our `defer` trampoline
+- **Stack Hijacking:** It override  function's return address to jump into our `defer` trampoline
 - **Task Queue:** Thread-local stack stores lambdas to execute on exit.
-- **Execution**: We execute all defers and than jump to your address
+- **Execution**: It executes all defers and than jumps to real return address
 
 ## Known Limitations 
 
@@ -49,10 +49,10 @@ TEST_CASE("LIMITATION: Defer DO NOT work with stack unwinding") {
     REQUIRE_THROWS_AS(test_exception_logic(log), std::runtime_error);
 }
 ```
-**Why?** Exceptions use OS-level unwind tables that bypass our return hijack. Your deferred tasks **won't run** during exception handling.
+**Why?** Exceptions use OS-level unwind tables that bypass our return hijack. Moreover, because of defer exception now learn how to bypass try-catch =).
 
 ### 2. Requires compiles flags
-You **MUST** compile with:
+You **SHOULD** compile with:
 - `-fno-omit-frame-pointer` (for stack walking)
 - `-O0` or carefully managed optimizations (or the stack layout breaks)
 
