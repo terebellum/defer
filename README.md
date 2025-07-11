@@ -68,7 +68,7 @@ Only works on:
 - `__attribute__((noinline))` is helpful for functions
 
 ### 5. Lambda pains
-* No stacked lambdas. It just not works.
+* No stacked lambdas. It just doesn't work.
 * Be careful with lambda captures
 
 ## Should I Use This?
